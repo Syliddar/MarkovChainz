@@ -13,7 +13,7 @@ namespace MarkovChainz
         public static void Main()
         {
             Console.WriteLine("Hello MNUG!");
-            var input = Console.ReadLine();
+            string input = Console.ReadLine();
 
             while (input != "exit")
             {
@@ -31,9 +31,6 @@ namespace MarkovChainz
                     case "TWEET":
                         Tweet();
                         break;
-                    case "SUBTWEET":
-                        SubTweet();
-                        break;
                     case "MURICA":
                         Murica();
                         break;
@@ -50,7 +47,7 @@ namespace MarkovChainz
 
         private static void Twitter()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Twooter.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Twooter.txt");
             for (int i = 1; i < 5; i++)
             {
                 Console.WriteLine("String Markov Chain with Level = " + i);
@@ -60,23 +57,13 @@ namespace MarkovChainz
         }
         private static void Tweet()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Twooter.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Twooter.txt");
             StringWalk(sourceText, 1);
-        }
-        private static void SubTweet()
-        {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Twooter.txt");
-            for (int i = 1; i < 5; i++)
-            {
-                Console.WriteLine("Substring Markov Chain with Level = " + i);
-                SubStringWalk(sourceText, i);
-                Console.ReadLine();
-            }
         }
 
         private static void Movie()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Movie.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Movie.txt");
 
             for (int i = 1; i < 5; i++)
             {
@@ -85,10 +72,9 @@ namespace MarkovChainz
                 Console.ReadLine();
             }
         }
-
         private static void SubMovie()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Movie.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Movie.txt");
             for (int i = 1; i < 5; i++)
             {
                 Console.WriteLine("Substring Markov Chain with Level = " + i);
@@ -96,24 +82,23 @@ namespace MarkovChainz
                 Console.ReadLine();
             }
         }
-
         private static void Murica()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Murica.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Murica.txt");
             StringWalk(sourceText);
         }
 
         private static void Sherlock()
         {
-            var sourceText = File.ReadAllLines(_sourceTextFolder + "Sherlock.txt");
+            string[] sourceText = File.ReadAllLines(_sourceTextFolder + "Sherlock.txt");
             StringWalk(sourceText);
         }
 
         private static void StringWalk(string[] sourceText, int level = 1)
         {
-            var model = new StringMarkov(level);
+            StringMarkov model = new StringMarkov(level);
             model.Learn(sourceText);
-            var format = model.Walk().First();
+            string format = model.Walk().First();
             while (format.Trim() == String.Empty)
             {
                 format = model.Walk().First();
@@ -122,9 +107,9 @@ namespace MarkovChainz
         }
         private static void SubStringWalk(string[] sourceText, int level = 1)
         {
-            var model = new SubstringMarkov(level);
+            SubstringMarkov model = new SubstringMarkov(level);
             model.Learn(sourceText);
-            var format = model.Walk().First();
+            string format = model.Walk().First();
             while (format.Trim() == String.Empty)
             {
                 format = model.Walk().First();
